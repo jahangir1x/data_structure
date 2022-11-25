@@ -11,12 +11,18 @@ typedef struct Node *nodePtr;
 int ListSize = 0;
 nodePtr startNode;
 
+nodePtr makeNode(int data) {
+    nodePtr newNode = (nodePtr)malloc(sizeof(struct Node));
+    newNode->data = data;
+    newNode->next = nullptr;
+    return newNode;
+}
+
 void addItem(int data) {
     nodePtr currentNode;
 
     if (ListSize == 0) {
-        startNode = (nodePtr)malloc(sizeof(struct Node));
-        startNode->data = data;
+        startNode = makeNode(data);
         startNode->next = nullptr;
 
         ListSize += 1;
@@ -25,22 +31,21 @@ void addItem(int data) {
 
     for (currentNode = startNode; currentNode->next != nullptr; currentNode = currentNode->next) {
     }
-    nodePtr tempNode = (nodePtr)malloc(sizeof(struct Node));
-    tempNode->data = data;
+    nodePtr tempNode = makeNode(data);
 
     currentNode->next = tempNode;
     tempNode->next = nullptr;
     ListSize += 1;
 }
 
-void printAll(nodePtr startNode) {
+void printAll() {
     for (nodePtr currentNode = startNode; currentNode != nullptr; currentNode = currentNode->next) {
         cout << currentNode->data << " ";
     }
     cout << endl;
 }
 
-int getMaximum(nodePtr startNode) {
+int getMaximum() {
     int max = startNode->data;
     for (nodePtr currentNode = startNode; currentNode != nullptr; currentNode = currentNode->next) {
         if (max < currentNode->data) {
@@ -50,7 +55,7 @@ int getMaximum(nodePtr startNode) {
     return max;
 }
 
-int getMinimum(nodePtr startNode) {
+int getMinimum() {
     int min = startNode->data;
     for (nodePtr currentNode = startNode; currentNode != nullptr; currentNode = currentNode->next) {
         if (min > currentNode->data) {
@@ -60,7 +65,7 @@ int getMinimum(nodePtr startNode) {
     return min;
 }
 
-int getTotal(nodePtr startNode) {
+int getTotal() {
     int sum = 0;
     for (nodePtr currentNode = startNode; currentNode != nullptr; currentNode = currentNode->next) {
         sum += currentNode->data;
@@ -68,7 +73,7 @@ int getTotal(nodePtr startNode) {
     return sum;
 }
 
-double getAverage(nodePtr startNode) {
+double getAverage() {
     double sum = 0;
     int numberOfElements = 0;
     for (nodePtr currentNode = startNode; currentNode != nullptr; currentNode = currentNode->next) {
@@ -78,7 +83,7 @@ double getAverage(nodePtr startNode) {
     return sum / numberOfElements;
 }
 
-void printSinValues(nodePtr startNode) {
+void printSinValues() {
     for (nodePtr currentNode = startNode; currentNode != nullptr; currentNode = currentNode->next) {
         cout << sin(currentNode->data) << " ";
     }
@@ -98,13 +103,13 @@ int main() {
     }
     // print linked list
     printf("linked list items: ");
-    printAll(startNode);
+    printAll();
 
-    cout << "Maximum: " << getMaximum(startNode) << endl;
-    cout << "Minimum: " << getMinimum(startNode) << endl;
-    cout << "Average: " << getAverage(startNode) << endl;
-    cout << "Total: " << getTotal(startNode) << endl;
-    printSinValues(startNode);
+    cout << "Maximum: " << getMaximum() << endl;
+    cout << "Minimum: " << getMinimum() << endl;
+    cout << "Average: " << getAverage() << endl;
+    cout << "Total: " << getTotal() << endl;
+    printSinValues();
 
     return 0;
 }

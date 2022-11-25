@@ -38,15 +38,11 @@ void addItem(int data) {
     ListSize += 1;
 }
 
-void printAll(nodePtr startNode) {
+void printAll() {
     for (nodePtr currentNode = startNode; currentNode != nullptr; currentNode = currentNode->next) {
         cout << currentNode->data << " ";
     }
     cout << endl;
-}
-
-void insertAtNode(nodePtr givenNode, int data) {
-    nodePtr newNode = makeNode(data);
 }
 
 void insertAt(int position, int data) {
@@ -88,14 +84,14 @@ int main() {
         addItem(data);
     }
     printf("linked list items: ");
-    printAll(startNode);
+    printAll();
 
     insertAt(2, 99);
-    printAll(startNode);
+    printAll();
     insertAt(3, 999);
-    printAll(startNode);
+    printAll();
     insertAt(5, 9999);
-    printAll(startNode);
+    printAll();
 
     return 0;
 }
