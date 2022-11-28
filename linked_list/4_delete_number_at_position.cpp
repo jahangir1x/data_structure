@@ -45,43 +45,38 @@ void printAll() {
     cout << endl;
 }
 
-nodePtr findIntermediateNode(int data) {
+void deleteAt(int position) {
+    if (ListSize <= position) {
+        cout << "Error position not available !" << endl;
+        exit(1);
+    }
+
     if (ListSize == 0) {
-        return nullptr;
+        cout << "Error no item is present in list." << endl;
+        exit(1);
     }
 
-    if (startNode->data >= data) {
-        return nullptr;
-    }
-
-    nodePtr tempNode = startNode;
-    nodePtr prevNode = startNode;
-
-    while (tempNode != nullptr) {
-        if (data <= tempNode->data) {
-            return prevNode;
-        }
-        prevNode = tempNode;
-        tempNode = tempNode->next;
-    }
-    return prevNode;
-}
-
-void insertToSorted(int data) {
-    nodePtr intermediateNode = findIntermediateNode(data);
-
-    nodePtr newNode = makeNode(data);
-    if (intermediateNode == nullptr) {
-        newNode->next = startNode;
-        startNode = newNode;
-        ListSize = 1;
+    if (position == 0) {
+        startNode = startNode->next;
+        ListSize -= 1;
         return;
     }
 
-    newNode->next = intermediateNode->next;
-    intermediateNode->next = newNode;
-    ListSize += 1;
-    return;
+    int nodeCount = 0;
+
+    nodePtr prevNode = startNode;
+    nodePtr currentNode = startNode;
+
+    while (currentNode != nullptr) {
+        if (nodeCount == position) {
+            prevNode->next = currentNode->next;
+            ListSize -= 1;
+            return;
+        }
+        prevNode = currentNode;
+        currentNode = currentNode->next;
+        nodeCount += 1;
+    }
 }
 
 int main() {
@@ -89,22 +84,20 @@ int main() {
     addItem(2);
     addItem(3);
     addItem(4);
-    addItem(4);
     addItem(5);
     addItem(6);
+    addItem(7);
     printf("linked list items: ");
     printAll();
 
-    insertToSorted(0);
+    deleteAt(0);
     printAll();
 
-    insertToSorted(3);
+    deleteAt(3);
     printAll();
 
-    insertToSorted(4);
+    deleteAt(1);
     printAll();
 
-    insertToSorted(10);
-    printAll();
     return 0;
 }

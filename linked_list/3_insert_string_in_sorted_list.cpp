@@ -74,11 +74,13 @@ void insertToSorted(char *data) {
     if (intermediateNode == nullptr) {
         newNode->next = startNode;
         startNode = newNode;
+        ListSize = 1;
         return;
     }
 
     newNode->next = intermediateNode->next;
     intermediateNode->next = newNode;
+    ListSize += 1;
     return;
 }
 
